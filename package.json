@@ -1,0 +1,37 @@
+{
+  "name": "framework7-v6-tab-view",
+  "type": "module",
+  "private": true,
+  "version": "2.0.0",
+  "description": "",
+  "scripts": {
+    "monaca:preview": "npm run dev",
+    "dev": "browser-sync start -s www/ --watch --port 8080",
+    "postinstall": "cpy ./node_modules/framework7-icons/fonts/*.* ./www/fonts/ && cpy ./node_modules/material-icons/iconfont/*.* ./www/fonts/ && cpy ./node_modules/framework7/*.js ./www/framework7 && cpy ./node_modules/framework7/*.css ./www/framework7 && cpy ./node_modules/framework7/*.map ./www/framework7"
+  },
+  "dependencies": {
+    "cordova-plugin-splashscreen": "6.0.0",
+    "cordova-plugin-statusbar": "2.4.3",
+    "cpy": "^8.1.2",
+    "cpy-cli": "^3.1.1",
+    "dom7": "^3.0.0",
+    "framework7": "^8.0.5",
+    "framework7-icons": "^5.0.5",
+    "material-icons": "^1.10.6",
+    "monaca-plugin-monaca-core": "3.3.1",
+    "ncmb": "^3.2.0",
+    "rimraf": "^3.0.2",
+    "skeleton-elements": "^3.5.0",
+    "swiper": "^6.8.4"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.27.7"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-statusbar": {},
+      "monaca-plugin-monaca-core": {},
+      "cordova-plugin-splashscreen": {}
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "mu-jquery-dayjs",
+  "homepage": "https://github.com/mu-lib/mu-jquery-dayjs",
+  "version": "0.0.1",
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.1",
+    "commit": "2663840735471cf370838dfb38ee3c1f52903e14"
+  },
+  "_source": "https://github.com/mu-lib/mu-jquery-dayjs.git",
+  "_target": "0.0.1",
+  "_originalSource": "mu-jquery-dayjs",
+  "_direct": true
+}

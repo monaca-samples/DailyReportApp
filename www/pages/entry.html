@@ -1,0 +1,66 @@
+<div class="page" data-name="new_entry">
+    <div class="navbar">
+        <div class="navbar-bg"></div>
+        <div class="navbar-inner sliding">
+            <div class="title">Daily Report Entry</div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="block">
+            <div class="list list-strong-ios list-dividers-ios inset-ios">
+                <ul>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Date</div>
+                            <div class="item-input-wrap">
+                                <input id="date" type="date" value="2023-06-01" placeholder="Please choose...">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Task</div>
+                            <div class="item-input-wrap">
+                                <input id="description" type="text" placeholder="Description of work">
+                                <span class="input-clear-button"></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Time</div>
+                            <div class="item-input-wrap">
+                                <div class="range-slider range-slider-init" data-label="true">
+                                    <input id="time" type="range" value="8" min="0" max="10" step="1">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-media">
+                            <i class="icon demo-list-icon"></i>
+                        </div>
+                        <a class="item-link smart-select smart-select-init" data-open-in="popover">
+                            <select id="category" name="category">
+                                <option value="option" selected>Option</option>
+                            </select>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">Category of Work</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <button id="addItem" class="button button-large button-raised button-fill margin-top" style="width: 50%; margin: auto;">Send Report</button>
+        </div>
+        <hr class="margin-horizontal" />
+        <div class="block">
+            <div class="block-title text-align-center" style="font-size: 20px; color: black; height: 20px;">Registered Items</div>
+            <div class="list list-strong list-outline list-dividers-ios simple-list">
+                <ul id="reports"></ul>
+            </div>
+        </div>
+    </div>
+</div>
