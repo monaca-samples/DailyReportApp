@@ -1,14 +1,12 @@
 var $ = Dom7;
 
 var device = Framework7.getDevice();
-
 var app = initializeApp(device);
-initializeDOMEventHandlers();
 
 var ncmb;
 var loginPopup;
 
-document.addEventListener("DOMContentLoaded", initializeApplication);
+document.addEventListener('DOMContentLoaded', initializeApplication)
 
 function initializeApp(device) {
   return new Framework7({
@@ -53,28 +51,28 @@ function getStatusbarSettings() {
   };
 }
 
-function initializeDOMEventHandlers() {
-  $("#loginBtn").on("click", login);
-  $("#addItem").on("click", addItem);
-  $("#browseTab").on("click", function () {
-    refreshBrowse(new Date($("#todaysDate").html()));
-  });
-  $("#reports").on("click", ".deleteItem", function (e) {
-    deleteItem($(e.target).data("id"));
-  });
+function initializeApplication(e) {
+    const applicationKey = '';
+    const clientKey = '';
+    ncmb = new NCMB(applicationKey, clientKey);
+    //Initialize DOM event handlers
+    initializeDOMEventHandlers()
+    //Check if the user is logged in
+    checkAuth()
+    //Show the categories
+    makeCategory()    
 }
 
-async function initializeApplication(e) {
-  const applicationKey = "";
-  const clientKey = "";
-  ncmb = new NCMB(applicationKey, clientKey);
-
-  checkAuth();
-  makeCategory();
-
-  const day = dayjs().format("YYYY-MM-DD");
-  $("#todaysDate").html(day);
+function initializeDOMEventHandlers(){
+    //Add login-signup button click event listener
+    $("#loginBtn").on("click", () => login.bind(this)()) 
+    $("#addItem").on("click", () => addItem.bind(this)())
+    //Set today's date in Browse screen
+    const day = dayjs().format('YYYY-MM-DD');
+    $("#todaysDate").html(day)
+    $("#browseTab").on("click", () => refreshBrowse.bind(this)(new Date(day)))
 }
+
 
 //Redirect the user to the appropriate screen according to their login status
 async function checkAuth() {
@@ -112,9 +110,9 @@ async function loginCheck() {
 
 //Perform authentication process
 async function login() {
-    const userName = document.querySelector('#username').value;
-    const password = document.querySelector('#password').value;
-    const displayName = document.querySelector('#displayName').value;
+    const userName = $('#username').val();
+    const password = $('#password').val();
+    const displayName = $('#displayName').val();
     //If these credentials have already been registered, the function will throw an error
     try {
         var user = new ncmb.User();
@@ -142,18 +140,18 @@ async function login() {
 */
 async function makeCategory() {
     const categories = await ncmb.DataStore('Category').fetchAll();
-    const category = document.querySelector('#category');
+    const category = $('#category');
     categories.forEach(c => {
-        let option = document.createElement('option');
-        option.setAttribute('value', c.get('name'));
-        option.innerHTML = c.get('name');
-        category.appendChild(option);
+        let option = $("<option>")
+        option.attr('value', c.get('name'));
+        option.html(c.get('name'));
+        category.append(option);
     });
 }
 
 //Process to add a daily report item
 async function addItem() {
-    const date = new Date(document.querySelector("#date").value);
+    const date = new Date($("#date").val());
     const user = ncmb.User.getCurrentUser();
 
     //Create a datastore class
@@ -163,7 +161,7 @@ async function addItem() {
     // Set each item in the daily report as part of the instance
     ['description', 'time', 'category'].forEach(s => {
         const selector = "#" + s
-        report.set(s, document.querySelector(selector).value)
+        report.set(s, $(selector).val())
     });
     //Set the rest of the items
     report
@@ -223,10 +221,10 @@ async function getItem(date, all = false) {
 
 //Process to display daily report data
 function viewReport(reports) {
-    const html = [];
+    const htmlArr = [];
     reports.forEach(r => {
         //Make a list item for each report
-        html.push(`
+        htmlArr.push(`
         <li>
             <block>
             <div class="item-content grid grid-cols-3 grid-gap">
@@ -242,9 +240,9 @@ function viewReport(reports) {
         `);
     });
     //Reflect it in the DOM
-    document.querySelector('#reports').innerHTML = html.join('');
+    $('#reports').html(htmlArr.join(''));
     //Add a deletion event to the trash icon for every listing
-    document.querySelectorAll('.deleteItem').forEach(d => {
+   $('.deleteItem').each(d => {
         // When the icon is clicked
         d.onclick = (e) => {
             console.log(e)
@@ -264,11 +262,11 @@ function viewReport(reports) {
 function viewBrowseReport(reports) {
     const user = ncmb.User.getCurrentUser();
     const admin = user.get('admin');
-    const html = [];
+    const htmlArr = [];
     reports.forEach(r => {
         //Retrieve username
         const name = `<div class="item-after">${r.get('user').displayName}</div>`;
-        html.push(`
+        htmlArr.push(`
         <li>
             <block>
                 <div class="item-content grid grid-cols-2 grid-gap">
@@ -283,7 +281,7 @@ function viewBrowseReport(reports) {
         `);
     });
     //Reflect it in the DOM
-    document.querySelector('#admin-reports').innerHTML = html.join('');
+    $('#admin-reports').html(htmlArr.join(''));
 }
 
 /*
@@ -301,7 +299,7 @@ async function deleteItem(objectId) {
         .set('objectId', objectId)
         .delete();
     //Get the date for screen refresh
-    const date = new Date(document.querySelector("#date").value);
+    const date = new Date($("#date").val());
     //Refresh the screen
     refresh.bind(this)(date);
 }
